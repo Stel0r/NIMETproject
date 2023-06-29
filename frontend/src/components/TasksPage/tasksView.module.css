@@ -1,0 +1,10 @@
+.tasksList{
+
+    overflow-x: hidden;
+    max-height: 65%;
+    height: auto;
+}
+
+.tasksList::-webkit-scrollbar{
+    display: none;
+}
