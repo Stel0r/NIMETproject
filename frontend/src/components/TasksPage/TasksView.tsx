@@ -1,12 +1,17 @@
 import { Outlet } from "react-router-dom"
 import styles from "./tasksView.module.css"
-import { FormEvent, useState } from "react"
+import { FormEvent, useContext, useRef, useState } from "react"
 import TaskCard from "../TaskCard/TaskCard"
+import { AppContext } from "../../context/AppContext"
 
 
 function TasksView() {
 
     const [showTaskCreation, setshowTaskCreation] = useState(false)
+    const taskList = useRef(null)
+    const appContext = useContext(AppContext)
+    const tasks = appContext.tasks
+    console.log(tasks)
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault()
@@ -15,21 +20,16 @@ function TasksView() {
 
     return (
         <div className="flex flex-nowrap min-h-full max-h-min w-full " >
-            <div className="box-border border bg-gray-300 p-10  h-auto w-2/6">
+            <div className="box-border border bg-gray-300 px-10 py-5 h-auto w-2/6">
                 <div className="todoList max-h-full ">
                     <p className="font-roboto text-2xl font-bold">Tareas por hacer</p>
-                    <div className={`${styles.tasksList} my-8`} >
-                        <TaskCard></TaskCard>
-                        <TaskCard></TaskCard>
-                        <TaskCard></TaskCard>
-                        <TaskCard></TaskCard>
-                        <TaskCard></TaskCard>
-                        <TaskCard></TaskCard>
-                        <TaskCard></TaskCard>
-                        <TaskCard></TaskCard>
-                        
+                    <div className={`${styles.tasksList} mb-6`} ref={taskList}>
+                        {tasks?.map((tarea) => <TaskCard task={tarea} key={tarea.id} />)}
                     </div>
-                    <button onClick={(e) => { setshowTaskCreation(true) }} className="block m-auto rounded-full mt-4 bg-green-400 px-5 py-3 text-md">Nueva Tarea</button>
+                    <button onClick={() => {
+                        appContext.crearTask({titulo:"",color:"#9cfa69",id:appContext.tasks?.length.toString()})
+                    }}
+                    className="block m-auto rounded-full mt-4 bg-green-400 px-5 py-3 text-md">Nueva Tarea</button>
                 </div>
             </div>
             <div className="projectsList box-border bg-gray-400 h-auto w-4/6">
@@ -41,7 +41,7 @@ function TasksView() {
                         <div className="modal-head bg-gray-200 p-5 flex items-center">
                             <span>Nueva Tarea</span>
                             <button form="form" className="ms-auto rounded-full bg-green-400 mr-1  px-5 py-2 text-sm">Crear</button>
-                            <button onClick={(e) => { setshowTaskCreation(false) }} className=" rounded-full bg-green-400 px-5 py-2 text-sm">Cancelar</button>
+                            <button onClick={() => { setshowTaskCreation(false) }} className=" rounded-full bg-green-400 px-5 py-2 text-sm">Cancelar</button>
                         </div>
                         <div className="modal-bod bg-white p-5">
                             <form id="form" onSubmit={handleSubmit}>

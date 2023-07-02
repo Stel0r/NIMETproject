@@ -1,7 +1,7 @@
 export interface Task{
-    nombre:string
+    id:string
+    titulo:string
     descripcion?:string
-    fechaCreacion:Date
-    fechaFin:Date
-    color?:string
+    fechaFin?:Date
+    color:string
 }
