@@ -5,4 +5,6 @@ export interface Project{
     desc?:string
     color?:string
     tareas:Task[]
+    fechaInicio?:Date
+    fechaFinal?:Date
 }
