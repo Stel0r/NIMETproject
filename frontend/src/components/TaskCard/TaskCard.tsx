@@ -34,8 +34,10 @@ function TaskCard({ task }: TaskCardProps) {
                 setDesc(task.descripcion)
             }
             if (task.fechaFin) {
-                setHora(task.fechaFin.getHours().toString())
-                setMinutos(task.fechaFin.getMinutes().toString())
+                const hora = task.fechaFin.getHours() > 9 ? task.fechaFin.getHours().toString() : "0"+task.fechaFin.getHours().toString()
+                setHora(hora)
+                const minutos = task.fechaFin.getMinutes() > 9 ? task.fechaFin.getMinutes().toString() : "0"+ task.fechaFin.getMinutes().toString()
+                setMinutos(minutos)
             }
         }
     }, [])
