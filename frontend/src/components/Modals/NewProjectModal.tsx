@@ -34,7 +34,6 @@ function NewProjectModal({ show }: NewProjectModalProps) {
                         <div className='flex gap-3'>
                             <input type="text" name="name" className="bg-gray-100 border-2 border-black w-full text-md p-1 rounded-lg mb-5" />
                             <ColorSelect set={setColor} colors={appContext.colores} initial={color}></ColorSelect>
-
                         </div>
                         <p>Descripcion</p>
                         <input type="text" name="desc" className="bg-gray-100 border-2 border-black w-full text-md p-1 rounded-lg mb-5" />
@@ -44,7 +43,7 @@ function NewProjectModal({ show }: NewProjectModalProps) {
                         </div>
                         {initDate &&
                             <div className="flex justify-evenly items-center">
-                                {initDateTime ? <input type="datetime-local" name='initialDate' /> : <input type="date" name='initialDate' />}
+                                {initDateTime ? <input type="datetime-local" className='text-center' name='initialDate' /> : <input className='text-center' type="date" name='initialDate' />}
                                 <div>
                                     <input type="checkbox" onChange={(e) => { setInitDateTime(e.currentTarget.checked) }} />
                                     <label className='ml-1'>Hora</label>
@@ -57,7 +56,7 @@ function NewProjectModal({ show }: NewProjectModalProps) {
                         </div>
                         {finalDate &&
                             <div className="flex justify-evenly items-center">
-                                {finalDateTime ? <input type="datetime-local" name='finalDate' /> : <input type="date" name='finalDate' />}
+                                {finalDateTime ? <input type="datetime-local" className='text-center' name='finalDate' /> : <input className='text-center' type="date" name='finalDate' />}
                                 <div>
                                     <input type="checkbox" onChange={(e) => { setFinalDateTime(e.currentTarget.checked) }} />
                                     <label className='ml-1'>Hora</label>
