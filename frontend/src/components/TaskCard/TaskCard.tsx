@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useRef, useState, useContext } from 'react'
+import { useEffect, useRef, useState, useContext } from 'react'
 import ColorSelect from '../Utils/ColorSelect'
 import utils from "../../styles/util.module.css"
 import anim from "./taskcardAnim.module.css"
@@ -12,8 +12,7 @@ interface TaskCardProps {
 function TaskCard({ task }: TaskCardProps) {
 
     const ref = useRef<HTMLTextAreaElement>(null)
-    const colores = ["#9cfa69", "#5b96f5", "#9e5bf5", "#f75ced", "#fa6182", "#69faf0"]
-    const [color, setColor] = useState(colores[0])
+    const [color, setColor] = useState("")
     const [titulo, setTitulo] = useState("")
     const [desc, setDesc] = useState("")
     const [hora, setHora] = useState("")
@@ -40,6 +39,7 @@ function TaskCard({ task }: TaskCardProps) {
                 setMinutos(minutos)
             }
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     function checkHeight() {
@@ -67,6 +67,7 @@ function TaskCard({ task }: TaskCardProps) {
                 setDesc(desc.toString())
                 task.descripcion = desc.toString()
             }
+            task.color = color
             if ((hora && minutos)) {
                 setHora(hora.toString())
                 setMinutos(minutos.toString())
@@ -124,12 +125,12 @@ function TaskCard({ task }: TaskCardProps) {
                                 <path d="M10.185,1.417c-4.741,0-8.583,3.842-8.583,8.583c0,4.74,3.842,8.582,8.583,8.582S18.768,14.74,18.768,10C18.768,5.259,14.926,1.417,10.185,1.417 M10.185,17.68c-4.235,0-7.679-3.445-7.679-7.68c0-4.235,3.444-7.679,7.679-7.679S17.864,5.765,17.864,10C17.864,14.234,14.42,17.68,10.185,17.68 M10.824,10l2.842-2.844c0.178-0.176,0.178-0.46,0-0.637c-0.177-0.178-0.461-0.178-0.637,0l-2.844,2.841L7.341,6.52c-0.176-0.178-0.46-0.178-0.637,0c-0.178,0.176-0.178,0.461,0,0.637L9.546,10l-2.841,2.844c-0.178,0.176-0.178,0.461,0,0.637c0.178,0.178,0.459,0.178,0.637,0l2.844-2.841l2.844,2.841c0.178,0.178,0.459,0.178,0.637,0c0.178-0.176,0.178-0.461,0-0.637L10.824,10z"></path>
                             </svg>
                         </button>
-                        <ColorSelect set={cambiarColor} colors={colores} initial={task.color}></ColorSelect>
+                        <ColorSelect set={cambiarColor} colors={appContext.colores} initial={task.color}></ColorSelect>
                     </div>
                 </form>
                 :
                 <div className="flex overflow-hidden rounded-md">
-                    <div id="sidebar" className={`h-inherit ${anim.barAppear} `} style={{ backgroundColor: color }} onMouseEnter={(e) => { setShowOptions(true) }} onMouseLeave={(e) => { setShowOptions(false) }} onAnimationEnd={(e) => e.currentTarget.classList.replace(anim.barAppear, anim.sidebar)}>
+                    <div id="sidebar" className={`h-inherit ${anim.barAppear} `} style={{ backgroundColor: color }} onMouseEnter={() => { setShowOptions(true) }} onMouseLeave={() => { setShowOptions(false) }} onAnimationEnd={(e) => e.currentTarget.classList.replace(anim.barAppear, anim.sidebar)}>
                         {showOptions &&
                             <div className={`${anim.appear} flex flex-col items-center justify-evenly h-full`}>
                                 <button onClick={() => appContext.eliminarTask(task.id)}>

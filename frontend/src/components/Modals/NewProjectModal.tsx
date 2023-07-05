@@ -1,4 +1,6 @@
-import React, { FormEvent, useState } from 'react'
+import { FormEvent, useContext, useState } from 'react'
+import ColorSelect from '../Utils/ColorSelect'
+import { AppContext } from '../../context/AppContext'
 
 interface NewProjectModalProps {
     show: (bool: boolean) => void
@@ -6,10 +8,13 @@ interface NewProjectModalProps {
 
 function NewProjectModal({ show }: NewProjectModalProps) {
 
+    const appContext = useContext(AppContext)
+
     const [initDateTime, setInitDateTime] = useState(false)
     const [finalDateTime, setFinalDateTime] = useState(false)
     const [initDate, setInitDate] = useState(false)
     const [finalDate, setFinalDate] = useState(false)
+    const [color,setColor] = useState(appContext.colores[0])
 
     function handleSubmit(e: FormEvent<HTMLFormElement>) {
         e.preventDefault()
@@ -17,21 +22,25 @@ function NewProjectModal({ show }: NewProjectModalProps) {
 
     return (
         <div className="modal fixed h-full w-full top-0 left-0 bg-black bg-opacity-50 flex items-center">
-            <div className="modal-window w-96 m-auto rounded-lg overflow-hidden ">
-                <div className="modal-head bg-gray-200 p-5 flex items-center">
+            <div className="modal-window w-96 m-auto ">
+                <div className="modal-head bg-gray-200 p-5 flex items-center rounded-t-lg">
                     <span>Nuevo Proyecto</span>
                     <button form="form" className="ms-auto rounded-full bg-green-400 mr-1  px-5 py-2 text-sm">Crear</button>
                     <button onClick={() => { show(false) }} className=" rounded-full bg-green-400 px-5 py-2 text-sm">Cancelar</button>
                 </div>
-                <div className="modal-bod bg-white p-5">
+                <div className="modal-bod bg-white p-5 rounded-b-lg">
                     <form id="form" onSubmit={(e) => handleSubmit(e)}>
                         <p>Nombre</p>
-                        <input type="text" name="name" className="bg-gray-100 border-2 border-black w-full text-md p-1 rounded-lg mb-5" />
+                        <div className='flex gap-3'>
+                            <input type="text" name="name" className="bg-gray-100 border-2 border-black w-full text-md p-1 rounded-lg mb-5" />
+                            <ColorSelect set={setColor} colors={appContext.colores} initial={color}></ColorSelect>
+
+                        </div>
                         <p>Descripcion</p>
                         <input type="text" name="desc" className="bg-gray-100 border-2 border-black w-full text-md p-1 rounded-lg mb-5" />
                         <div className='flex items-center'>
                             <span>Fecha Inicio</span>
-                            <input type="checkbox" className='ms-3' onChange={(e) => { setInitDate(e.currentTarget.checked);setInitDateTime(false) }} />
+                            <input type="checkbox" className='ms-3' onChange={(e) => { setInitDate(e.currentTarget.checked); setInitDateTime(false) }} />
                         </div>
                         {initDate &&
                             <div className="flex justify-evenly items-center">
@@ -44,7 +53,7 @@ function NewProjectModal({ show }: NewProjectModalProps) {
                         }
                         <div className='flex items-center'>
                             <span>Fecha Final</span>
-                            <input type="checkbox" className='ms-3' onChange={(e) => { setFinalDate(e.currentTarget.checked);setFinalDateTime(false) }} />
+                            <input type="checkbox" className='ms-3' onChange={(e) => { setFinalDate(e.currentTarget.checked); setFinalDateTime(false) }} />
                         </div>
                         {finalDate &&
                             <div className="flex justify-evenly items-center">

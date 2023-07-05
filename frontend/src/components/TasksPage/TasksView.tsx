@@ -1,20 +1,14 @@
 import { Outlet } from "react-router-dom"
 import styles from "./tasksView.module.css"
-import { FormEvent, useContext, useRef, useState } from "react"
+import { useContext, useRef } from "react"
 import TaskCard from "../TaskCard/TaskCard"
 import { AppContext } from "../../context/AppContext"
 
 
 function TasksView() {
 
-    const [showTaskCreation, setshowTaskCreation] = useState(false)
     const taskList = useRef(null)
     const appContext = useContext(AppContext)
-
-    const handleSubmit = (e: FormEvent) => {
-        e.preventDefault()
-        setshowTaskCreation(false)
-    }
 
     return (
         <div className="flex flex-nowrap min-h-full max-h-min w-full" >
@@ -25,7 +19,7 @@ function TasksView() {
                         {appContext.tasks?.map((tarea) => <TaskCard task={tarea} key={tarea.id} />)}
                     </div>
                     <button onClick={() => {
-                        appContext.crearTask({titulo:"",color:"#9cfa69",id:appContext.tasks?.length.toString()})
+                        appContext.crearTask({titulo:"",color:appContext.colores[0],id:appContext.tasks?.length.toString()})
                     }}
                     className="block m-auto rounded-full mt-4 bg-green-400 px-5 py-3 text-md">Nueva Tarea</button>
                 </div>
