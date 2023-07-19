@@ -3,7 +3,7 @@ import NewProjectModal from "../Modals/NewProjectModal"
 
 function ProjectsList() {
 
-    const [showTaskCreation, setShowTaskCreation] = useState(true)
+    const [showTaskCreation, setShowTaskCreation] = useState(false)
 
 
     return (

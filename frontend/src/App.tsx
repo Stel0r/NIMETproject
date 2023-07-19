@@ -13,12 +13,12 @@ function App() {
 			<div className='app h-screen overflow-auto'>
 				<div className='header'>
 					<Link to="/" className='font-bold text-xl ml-5 text-black'>NIMET project</Link>
-					<Link to="/Projects" className='text-mute ml-10 text-lg text-black'>Projects</Link>
+					<Link to="/Tasks" className='text-mute ml-10 text-lg text-black'>Tasks</Link>
 				</div>
 				<div className='window'>
 					<Routes>
 						<Route path='/' element={<HomeView />} />
-						<Route path='/Projects' element={<TasksView />}>
+						<Route path='/Tasks' element={<TasksView />}>
 							<Route path="" element={<ProjectsList />} />
 							<Route path=":projectId" element={<ProjectView />} />
 						</Route>

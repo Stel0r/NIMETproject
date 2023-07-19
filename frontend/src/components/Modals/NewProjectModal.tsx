@@ -1,6 +1,7 @@
 import { FormEvent, useContext, useState } from 'react'
 import ColorSelect from '../Utils/ColorSelect'
 import { AppContext } from '../../context/AppContext'
+import { Project } from '../../Models/project'
 
 interface NewProjectModalProps {
     show: (bool: boolean) => void
@@ -18,6 +19,29 @@ function NewProjectModal({ show }: NewProjectModalProps) {
 
     function handleSubmit(e: FormEvent<HTMLFormElement>) {
         e.preventDefault()
+        const formData = new FormData(e.currentTarget)
+        const name = formData.get("name")?.toString()
+        if(name === undefined || name === ""){
+            console.error("se neceista un nombre para continuar")
+        }else{
+            const newProject : Project = {
+                name,
+                tareas:[]
+            }
+            if(initDate){
+                const iDate = formData.get("initialDate")?.valueOf()
+                newProject.fechaInicio = iDate as Date
+            }
+            if(finalDate){
+                const fDate = formData.get("finalDate")?.valueOf()
+                newProject.fechaFinal = fDate as Date
+            }
+            const desc = formData.get("desc")?.toString()
+            if(desc !== undefined && desc !== ""){
+                newProject.desc = desc
+            }
+            console.log(newProject)
+        }
     }
 
     return (
