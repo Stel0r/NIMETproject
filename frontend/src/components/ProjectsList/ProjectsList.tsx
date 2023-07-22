@@ -18,6 +18,7 @@ function ProjectsList() {
                 {appContext.projects.map((proy) => 
                 <div className="w-full my-2 cursor-pointer" style={{backgroundColor:`${proy.color}`}}>
                     <p>{proy.name}</p>
+                    <p>{proy.fechaFinal?.toString()} - {proy.fechaFinal?.toString()}</p>
                 </div>)}
             </div>
             {showTaskCreation &&
