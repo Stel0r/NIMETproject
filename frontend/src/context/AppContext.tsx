@@ -1,5 +1,6 @@
 import { createContext, useState } from "react"
 import { Task } from "../Models/task"
+import { Project } from "../Models/project"
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 
@@ -10,9 +11,13 @@ interface AppContextValue {
     actualizarTask: (arg0: string, arg1: Task) => void
     eliminarTask: (arg0: string) => void
     colores:string[]
+    projects:Project[]
+    crearProyecto: (arg0: Project) => void
+    actualizarProyecto: (arg0: string, arg1: Project) => void
+    eliminarProyecto: (arg0: string) => void
 }
 
-export const AppContext = createContext<AppContextValue>({ crearTask: (task) => { return }, actualizarTask: (id, task) => { return }, tasks: [], eliminarTask: (id) => { return },colores:[]})
+export const AppContext = createContext<AppContextValue>({ crearTask: (task) => { return }, actualizarTask: (id, task) => { return }, tasks: [], eliminarTask: (id) => { return },colores:[],projects:[], crearProyecto: (task) => { return }, actualizarProyecto: (id, task) => { return }, eliminarProyecto: (id) => { return }})
 
 export function AppContextProvider({ children }: {children:React.ReactNode}) {
 
@@ -41,6 +46,7 @@ export function AppContextProvider({ children }: {children:React.ReactNode}) {
         },
     ])
     const colores = ["#9cfa69", "#5b96f5", "#9e5bf5", "#f75ced", "#fa6182", "#69faf0"]
+    const [projects,setProjects] = useState<Project[]>([])
 
     function crearTarea(tarea: Task) {
         setTasks([...tasks, tarea])
@@ -52,9 +58,30 @@ export function AppContextProvider({ children }: {children:React.ReactNode}) {
 
     function eliminarTarea(id: string) {
         setTasks(tasks.filter((tarea) => tarea.id != id))
+        tasks.forEach((tarea, index) => {
+            tarea.id = index.toString()
+            return tarea
+        })
     }
 
-    return (<AppContext.Provider value={{ user: user, tasks: tasks, crearTask: crearTarea, actualizarTask: actualizarTarea, eliminarTask: eliminarTarea,colores:colores }}>
+    function crearProyecto(proyecto: Project) {
+        setProjects([...projects, proyecto])
+    }
+
+    function actualizarProyecto(id: string, nuevoProyecto: Project) {
+        setProjects(projects.map((proyecto) => proyecto.id === nuevoProyecto.id ? nuevoProyecto : proyecto))
+    }
+
+    function eliminarProyecto(id: string) {
+        setProjects(projects.filter((proyecto) => proyecto.id != id))
+        setProjects(projects.map((proyecto, index) => {
+            proyecto.id = index.toString()
+            return proyecto
+        }))
+    }
+
+
+    return (<AppContext.Provider value={{ user: user, tasks: tasks, crearTask: crearTarea, actualizarTask: actualizarTarea, eliminarTask: eliminarTarea,colores:colores,projects,crearProyecto,actualizarProyecto,eliminarProyecto}}>
         {children}
     </AppContext.Provider>)
 }

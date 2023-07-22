@@ -25,6 +25,7 @@ function NewProjectModal({ show }: NewProjectModalProps) {
             console.error("se neceista un nombre para continuar")
         }else{
             const newProject : Project = {
+                id:appContext.projects.length.toString(),
                 name,
                 tareas:[]
             }
@@ -40,7 +41,9 @@ function NewProjectModal({ show }: NewProjectModalProps) {
             if(desc !== undefined && desc !== ""){
                 newProject.desc = desc
             }
-            console.log(newProject)
+            newProject.color = color
+            appContext.crearProyecto(newProject)
+            show(false)
         }
     }
 
