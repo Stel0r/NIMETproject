@@ -1,6 +1,7 @@
 import { useState, useContext } from "react"
 import NewProjectModal from "../Modals/NewProjectModal"
 import { AppContext } from "../../context/AppContext"
+import ProjectCard from "../ProjectCard/ProjectCard"
 
 function ProjectsList() {
 
@@ -15,14 +16,11 @@ function ProjectsList() {
                 <button className="ms-auto block rounded-full bg-green-400 px-5 py-3 text-md" onClick={() => setShowTaskCreation(true)}>Nuevo Proyecto</button>
             </div>
             <div className="flex-col py-5 w-full">
-                {appContext.projects.map((proy) => 
-                <div className="w-full my-2 cursor-pointer" style={{backgroundColor:`${proy.color}`}}>
-                    <p>{proy.name}</p>
-                    <p>{proy.fechaFinal?.toString()} - {proy.fechaFinal?.toString()}</p>
-                </div>)}
+                {appContext.projects.map((proy) =>
+                    <ProjectCard proy={proy} />)}
             </div>
             {showTaskCreation &&
-                <NewProjectModal show = {setShowTaskCreation}/>
+                <NewProjectModal show={setShowTaskCreation} />
             }
         </div>
     )

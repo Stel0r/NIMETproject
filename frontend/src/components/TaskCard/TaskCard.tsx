@@ -102,12 +102,12 @@ function TaskCard({ task }: TaskCardProps) {
     }
 
     return (
-        <div className={`${anim.boxAppear}  task bg-gray-100 border-2 border-gray-400 rounded-lg box-border  my-3 w-full`}>
+        <div className={`${anim.boxAppear}  task bg-gray-100 border-2 border-gray-300 rounded-lg box-border  my-3 w-full`}>
             {editing ?
                 <form action="" className={`flex p-5`} onSubmit={(e) => { handleSubmit(e) }}>
                     <div className="flex flex-col w-full box-border pl-3 pr-4">
                         <div className='flex justify-between items-center gap-2'>
-                            <input value={titulo} onChange={(e) => { setTitulo(e.currentTarget.value) }} name="titulo" placeholder='Titulo' type="text" className='bg-transparent border-b-2 mb-4 box-border p-1 border-black focus:outline-none font-bold w-5/6' />
+                            <input value={titulo} onChange={(e) => { setTitulo(e.currentTarget.value) }} name="titulo" placeholder='Titulo' type="text" className=' text-lg bg-transparent border-b-2 mb-4 box-border p-1 border-black focus:outline-none font-bold w-5/6 font-roboto' />
                             <div className='flex items-center'>
                                 <input onChange={(e) => { setHora(e.currentTarget.value) }} name="hora" value={hora} type="number" placeholder='HH' className={`w-7 h-8 text-center bg-transparent ${utils.numberInput} outline-none`} /> <span>:</span> <input name="minutos" value={minutos} onChange={(e) => { setMinutos(e.currentTarget.value) }} type="number" placeholder='MM' className={`w-7 h-8 text-center bg-transparent outline-none ${utils.numberInput}`} />
                             </div>
@@ -151,7 +151,7 @@ function TaskCard({ task }: TaskCardProps) {
                     </div>
                     <div className={`flex flex-col w-full box-border pl-3 pr-4 py-5 ${anim.boxAppear}`}>
                         <div className='flex justify-between items-center'>
-                            <p className='mb-1 box-border p-1 font-bold w-5/6'>{titulo}</p>
+                            <p className=' box-border p-1 font-bold w-5/6 font-roboto text-lg'>{titulo}</p>
                             <p className={`w-16 h-8 text-center`}>{(hora === "" || minutos === "") ? "" : hora + ":" + minutos}</p>
                         </div>
                         <p className={`box-border px-1 h-auto`}  >{desc}</p>
