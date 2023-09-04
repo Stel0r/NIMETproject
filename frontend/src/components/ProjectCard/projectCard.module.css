@@ -1,0 +1,10 @@
+@keyframes Boxappear {
+    from{opacity: 0;
+        transform: translatex(-20px);}
+    to{opacity: 1;
+        transform: translatex(0px);}
+}
+
+.boxAppear{
+    animation: forwards Boxappear .5s ease-in-out
+}
