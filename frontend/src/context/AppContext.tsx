@@ -15,9 +15,11 @@ interface AppContextValue {
     crearProyecto: (arg0: Project) => void
     actualizarProyecto: (arg0: string, arg1: Project) => void
     eliminarProyecto: (arg0: string) => void
+    obtenerProyecto: (arg0:string) => Project
 }
 
-export const AppContext = createContext<AppContextValue>({ crearTask: (task) => { return }, actualizarTask: (id, task) => { return }, tasks: [], eliminarTask: (id) => { return },colores:[],projects:[], crearProyecto: (task) => { return }, actualizarProyecto: (id, task) => { return }, eliminarProyecto: (id) => { return }})
+
+export const AppContext = createContext<AppContextValue|null>(null)
 
 export function AppContextProvider({ children }: {children:React.ReactNode}) {
 
@@ -80,8 +82,21 @@ export function AppContextProvider({ children }: {children:React.ReactNode}) {
         }))
     }
 
+    function obtenerProyecto(id:string){
+        const p = projects.find((idP:Project) => {
+            if(idP.id === id){
+                return true
+            }
+        })
+        if (p){
+            return p
+        }else{
+            return {id:"-1",name:"not Found",tareas:[]}
+        }
+    }
 
-    return (<AppContext.Provider value={{ user: user, tasks: tasks, crearTask: crearTarea, actualizarTask: actualizarTarea, eliminarTask: eliminarTarea,colores:colores,projects,crearProyecto,actualizarProyecto,eliminarProyecto}}>
+
+    return (<AppContext.Provider value={{ user: user, tasks: tasks, crearTask: crearTarea, actualizarTask: actualizarTarea, eliminarTask: eliminarTarea,colores:colores,projects,crearProyecto,actualizarProyecto,eliminarProyecto,obtenerProyecto}}>
         {children}
     </AppContext.Provider>)
 }
