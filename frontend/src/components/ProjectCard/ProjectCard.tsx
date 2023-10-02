@@ -19,7 +19,7 @@ function ProjectCard({proy}:ProjectCardProps) {
         <p className="text-gray-400 whitespace-nowrap max-w-full overflow-hidden">{proy.desc}</p>
     </div>
     <div className=" bg-gray-200 border-2 border-gray-300 mt-3 h-40 rounded-lg box-border cursor-pointer">
-        <div className=" text-gray-400 flex items-center justify-center w-full h-full cursor-default">
+        <div className=" text-gray-400 flex items-center justify-center w-full h-full cursor-default" onClick={(e)=>{e.stopPropagation()}}>
             <p> No Hay Nada Pendiente</p>
         </div>
     </div>
